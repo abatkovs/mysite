@@ -6,6 +6,7 @@ from django.shortcuts import get_object_or_404, render
 # Create your views here.
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
 from django.views import generic
 #from django.http import Http404
 #from django.template import loader
@@ -18,28 +19,22 @@ class IndexView(generic.ListView):
     context_object_name = 'latest_question_list'
 
     def get_queryset(self):
-        """Return the last five published questions."""
-        return Question.objects.order_by('-pub_date')[:5]
-
-"""
-def page1(request):
-    #v = django.VERSION
-    return HttpResponse("This is Page Nr.1")
-
-    #   return HttpResponse("This is Page Nr.1" + " and django version is :" + v)
-"""
-""""
-def detail(request, question_id):
-    try:
-        question = Question.objects.get(pk=question_id)
-    except Question.DoesNotExist:
-        raise Http404("Question does not exist")
-    return render(request, 'polls/detail.html', {'question': question})
-"""
+        """
+        Return the last five published questions (not including those set to be
+        published in the future).
+        """
+        return Question.objects.filter(
+            pub_date__lte=timezone.now()
+        ).order_by('-pub_date')[:5]
 
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
+    def get_queryset(self):
+        """
+        Excludes any questions that aren't published yet.
+        """
+        return Question.objects.filter(pub_date__lte=timezone.now())
 
 class ResultsView(generic.DetailView):
     model = Question
