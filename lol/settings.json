@@ -1,0 +1,11 @@
+{
+    "global": {
+        "default_region": "EUNE",
+        "enable_ghost_loading": true
+    },
+	"pipeline": {
+		"RiotAPI": {
+			"api_key": "na"
+			}
+		}
+}
