@@ -33,6 +33,14 @@ class lol_summoner:
         #summoner = watcher.summoner.by_name(self.my_region, self.name)
         my_ranked_stats = watcher.league.by_summoner(self.my_region, summoner['id'])
         return my_ranked_stats
+#
+# data = my_ranked_stats
+#for list in data:
+#    print(list)
+#    for key, value in list.items():
+#        print('{} - {}'.format(key, value))
+
+
     
 # Lets see some champions
 #static_champ_list = watcher.static_data.champions(my_region)
