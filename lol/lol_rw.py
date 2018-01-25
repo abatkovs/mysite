@@ -1,7 +1,7 @@
 from riotwatcher import RiotWatcher
 from requests import HTTPError
 
-watcher = RiotWatcher('na')
+watcher = RiotWatcher('qq')
 
 my_region = 'eun1'
 
@@ -15,19 +15,26 @@ my_region = 'eun1'
 
 #print("{p[name]} rank is {r[0][tier]} {r[0][rank]} from {r[0][leagueName]} league".format(p=me, r=my_ranked_stats))
 
-class lol_summoner():
+class lol_summoner:
+    
     name = ""
-    my_region = "eun1"
-    def rank(self):
-        me = watcher.summoner.by_name(self.my_region, self.name)
-        my_ranked_stats = watcher.league.by_summoner(self.my_region, me['id'])
-        #print(my_ranked_stats)
-        out = "{p[name]} rank is {r[0][tier]} {r[0][rank]} - {r[0][leaguePoints]} from {r[0][leagueName]} league".format(p=me, r=my_ranked_stats)
-        #print("{p[name]} rank is {r[0][tier]} {r[0][rank]} - {r[0][leaguePoints]} from {r[0][leagueName]} league".format(p=me, r=my_ranked_stats))
+    def __init__(self, my_region = "eun1"):
+        self.my_region = my_region
+    
+    def summoner(self, name):
+        #1 call
+        self.name = name
+        summoner = watcher.summoner.by_name(self.my_region, self.name)
+        return summoner
         
+    def rank(self, name):
+        # 2 calls
+        summoner = self.summoner(name)
+        #summoner = watcher.summoner.by_name(self.my_region, self.name)
+        my_ranked_stats = watcher.league.by_summoner(self.my_region, summoner['id'])
         return my_ranked_stats
-
-# Lets some champions
+    
+# Lets see some champions
 #static_champ_list = watcher.static_data.champions(my_region)
 #print(static_champ_list)
 
