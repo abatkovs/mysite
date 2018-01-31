@@ -3,8 +3,8 @@ Created on 30 Jan 2018
 
 @author: Arnolds
 '''
-import discord
-import asyncio
+#import discord
+#import asyncio
 from discord.ext import commands
 import random
 
@@ -58,7 +58,11 @@ c=0
 
 
 @bot.command(description='Registers your summoner ";summoner region summonername"')
-async def summoner(region: str, *name: str):
+async def summoner(region = 'eun1', *name: str):
+    """Gets your summoner info from specified region """
+    #for i in name:
+    #    print(i.encode('utf-8', 'ignore'))
+    #print(name.encode('ascii', 'ignore'))
     n = ''
     if(len(name)> 1):
         for i in name:
@@ -71,8 +75,14 @@ async def summoner(region: str, *name: str):
     lol = lol_summoner()
     lol.my_region = region
     answer = lol.rank(n)
-    """Adds two numbers together."""
+    answer = answer[0]
+    winp = answer['wins']/(answer['losses']+answer['wins'])*100
+    format = """```\*\*League\*\*:{leagueName} 
+\*\*Summoner\*\*: {playerOrTeamName} 
+\*\*Wins\*\*: {wins} \*\*Losses\*\*: {losses} \*\*Winrate\*\*: {0}%
+\*\*tier\*\*: {tier} {rank} ```""".format(int(winp), **answer)
     
-    await bot.say(answer)
+    tmp = await bot.say("Geting data for: {}".format(n))
+    await bot.edit_message(tmp, format)
 
-bot.run('qq')
+bot.run('MjczNDIzNDM2NTE1Mzc3MTU1.DVJmIA.s2hqIlt8pETH62XcrcZXtcP5qso')

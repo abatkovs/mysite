@@ -1,7 +1,7 @@
 from riotwatcher import RiotWatcher
 from requests import HTTPError
 
-watcher = RiotWatcher('qq')
+watcher = RiotWatcher('RGAPI-6bf6d0a9-8cba-49d3-a4da-7b4e6396580e')
 
 my_region = 'eun1'
 
