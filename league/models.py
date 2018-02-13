@@ -3,22 +3,24 @@ from django.db import models
 # Create your models here.
 
 class Summoners(models.Model):
-    summoner_name = models.CharField(max_length=200, unique = True)
-    summoner_id = models.IntegerField(default = 0)
-    losses = models.IntegerField(default = 0)
-    wins = models.IntegerField(default = 0)
-    leagueName = models.CharField(max_length = 100)
-    rank = models.CharField(max_length = 50)
+    name = models.CharField(max_length=200, unique = True)
+    summoner_id = models.IntegerField(default = 0, unique = True)
+    accountId = models.IntegerField(default = 0)
+    summonerLevel = models.IntegerField(default = 0)
+    profileIconId = models.IntegerField(default = 0)
+    revisionDate = models.IntegerField(default = 0)
     modify_date = models.DateTimeField('date published')
     def __str__(self):
-        return self.summoner_name
+        return 'SummonerName: {}'.format(self.name)
     
     
 """
-s.name = 'Dragoon112'
-data = s.rank()
-lol_s = Summoners(summoner_name = data[0]['playerOrTeamName'], summoner_id = data[0]['playerOrTeamId'], losses = data[0]['losses'], wins = data[0]['wins'], leagueName = data[0]['leagueName'], rank = data[0]['tier'] + " " + data[0]['rank'] + " - " + str(data[0]['leaguePoints']), pub_date = timezone.now())
-lol_s.save()
+revisionDate: 1518529366000
+profileIconId: 1625
+summonerLevel: 82
+accountId: 31650179
+id: 27260328
+name: FizzCantCarry Q8
 
 
 """    

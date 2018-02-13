@@ -69,20 +69,30 @@ async def summoner(region = 'eun1', *name: str):
             n = n + " " + i
     else:
         n = name[0]
-    print(n)
+    print('User input: ', n)
     if region == 'eune':
         region = 'eun1'
     lol = lol_summoner()
     lol.my_region = region
+    
     answer = lol.rank(n)
+    if answer == '404':
+        return await bot.say("Can't find summoner with name \"{}\" or somethin broke.".format(n))
+        
+    if len(answer) == 0:
+        return await bot.say('This summoneris unranked')
     answer = answer[0]
-    winp = answer['wins']/(answer['losses']+answer['wins'])*100
-    format = """```\*\*League\*\*:{leagueName} 
-\*\*Summoner\*\*: {playerOrTeamName} 
-\*\*Wins\*\*: {wins} \*\*Losses\*\*: {losses} \*\*Winrate\*\*: {0}%
-\*\*tier\*\*: {tier} {rank} ```""".format(int(winp), **answer)
+    
+    print('data: ', answer)
+    if True:
+        if type(answer['wins']) == int:
+            winp = answer['wins']/(answer['losses']+answer['wins'])*100
+    ctx = """```League: {leagueName} 
+Summoner: {playerOrTeamName} 
+Wins: {wins} Losses: {losses} Winrate: {0}%
+tier: {tier} {rank} - {leaguePoints} ```""".format(int(winp), **answer)
     
     tmp = await bot.say("Geting data for: {}".format(n))
-    await bot.edit_message(tmp, format)
+    await bot.edit_message(tmp, ctx)
 
-bot.run('MjczNDIzNDM2NTE1Mzc3MTU1.DVJmIA.s2hqIlt8pETH62XcrcZXtcP5qso')
+bot.run('qq')
