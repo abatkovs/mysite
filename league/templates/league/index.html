@@ -1,5 +1,23 @@
-<form action="/your-name/" method="post">
-    <label for="your_name">Your name: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-    <input type="submit" value="OK">
-</form>
+{% load pagination_tags %}
+
+{% autopaginate summoners %}
+<table class= 'table table-border'>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Level</th>
+			<th>Icon</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for summoner in summoners %}
+		<tr>
+			<td>{{ summoner.name}}</td>
+			<td>{{ summoner.summonerLevel }}</td>
+			<td>{{ summoner.profileIconId }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>	
+</table>
+
+{% paginate %}

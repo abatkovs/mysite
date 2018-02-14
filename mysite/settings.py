@@ -29,8 +29,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+#++'dj_pagination',
 INSTALLED_APPS = [
+    'dj_pagination',
     'league.apps.LeagueConfig',
     'polls.apps.PollsConfig',
     'django.contrib.admin',
@@ -41,7 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+#++ 'dj_pagination.middleware.PaginationMiddleware',
 MIDDLEWARE = [
+    
+    'dj_pagination.middleware.PaginationMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

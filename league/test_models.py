@@ -4,6 +4,7 @@ import os; os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'; import djan
 
 
 from django.core.wsgi import get_wsgi_application
+from pip._vendor.distlib.compat import raw_input
 application = get_wsgi_application()
 
 #demo testi apaksha
@@ -15,7 +16,11 @@ from lol.lol_rw import lol_summoner
 s = lol_summoner(path = '../lol/')
 
 def test():
-    summoner = s.summoner(input('Name: '))
+    #TLP Levi
+    f = input('Name: ')
+
+    print(f)
+    summoner = s.summoner(f)
     for k, v in summoner.items():
         print('{}: {}'.format(k,v))
     #if summoner id == Summoners.objects.filter(summoner_id = summoner id) tad nepievinoe summoner velreiz
@@ -35,15 +40,15 @@ def test():
     #    print('New Summoner: {} Already exists in database {}'.format(summoner['id'], Summoners.objects.filter(summoner_id = summoner['id'])))
 
     print('Got ID = {}'.format(summoner['id']))
-    qq = Summoners.objects.filter(summoner_id = summoner['id'])
-    print('DB ID = {}'.format(qq))
-    print(type(qq))
+    summoner_id = Summoners.objects.get(summoner_id = summoner['id']).summoner_id
+    print('DB ID = {}'.format(summoner_id))
+    print(type(summoner_id))
     print(Summoners.objects.all())
     #return Summoners.objects.all()
 
 
-
-test()
+while True:
+    test()
 
 
 

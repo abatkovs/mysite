@@ -4,17 +4,38 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from lol.lol_rw import lol_summoner
-
+from django.template import loader
 
 from django.http import HttpResponseRedirect
 from .forms import NameForm
+from .models import Summoners
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+import dj_pagination as pg
+
 
 def index(request):
+    latest_summoners = Summoners.objects.order_by('-modify_date')[:30]
+    template = loader.get_template('league/index.html')
+    output = ', '.join([s.name for s in latest_summoners])
+    #s = lol_summoner(path = 'lol/')
+    ''''
+    page = request.GET.get('page', 1)
+    paginator = Paginator(latest_summoners, 2)
     
-    s = lol_summoner()
     
-    return HttpResponse(s.rank('Dragoon112'))
+    
+    try:
+        summoners = paginator.page(page)
+    except PageNotAnInteger:
+        summoners = paginator.page(1)
+    except EmptyPage:
+        summoners = paginator.page(paginator.num_pages)
+    '''
+    summoners = latest_summoners
+    #print(summoners)
+    return render(request, 'league/index.html', {'summoners':summoners})
+
+
 
 def get_name(request):
     # if this is a POST request we need to process the form data
