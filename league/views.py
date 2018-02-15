@@ -32,7 +32,7 @@ def index(request):
         summoners = paginator.page(paginator.num_pages)
     '''
     summoners = latest_summoners
-    #print(summoners)
+    #sprint(summoners)
     return render(request, 'league/index.html', {'summoners':summoners})
 
 

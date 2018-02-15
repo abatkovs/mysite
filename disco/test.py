@@ -57,7 +57,7 @@ c=0
 """
 
 
-@bot.command(description='Registers your summoner ";summoner region summonername"')
+@bot.command(description='Register your summoner ;summoner region summoner name \n available regions eune euw ru')
 async def summoner(region = 'eun1', *name: str):
     """Gets your summoner info from specified region """
     #for i in name:
@@ -72,7 +72,7 @@ async def summoner(region = 'eun1', *name: str):
     print('User input: ', n)
     if region == 'eune':
         region = 'eun1'
-    lol = lol_summoner()
+    lol = lol_summoner(path = '../lol/')
     lol.my_region = region
     
     answer = lol.rank(n)
@@ -94,5 +94,9 @@ tier: {tier} {rank} - {leaguePoints} ```""".format(int(winp), **answer)
     
     tmp = await bot.say("Geting data for: {}".format(n))
     await bot.edit_message(tmp, ctx)
+    
+f = open('api_key', 'r')
+data = f.read()
+print('API Key: {}'.format(data))
 
-bot.run('qq')
+bot.run(data)

@@ -1,23 +1,102 @@
+
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load static %}
+<html lang="en">
+<head>
+
 {% load pagination_tags %}
 
-{% autopaginate summoners %}
-<table class= 'table table-border'>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Level</th>
-			<th>Icon</th>
-		</tr>
-	</thead>
-	<tbody>
-		{% for summoner in summoners %}
-		<tr>
-			<td>{{ summoner.name}}</td>
-			<td>{{ summoner.summonerLevel }}</td>
-			<td>{{ summoner.profileIconId }}</td>
-		</tr>
-		{% endfor %}
-	</tbody>	
-</table>
+	<title>Summoners</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendor/perfect-scrollbar/perfect-scrollbar.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+<!--===============================================================================================-->
 
-{% paginate %}
+
+</head>
+
+<body>
+
+<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100 ver5 m-b-110">
+					<div class="table100-head">
+						{% autopaginate summoners 100 %}
+						<table class= 'table table-border'>
+							<thead>
+								<tr class="row100 head">
+									<th class="cell100 column1" width = 13%>Discord User</th>
+									<th class="cell100 column2">Name + Icon</th>
+									<th class="cell100 column3">Level</th>
+									<th class="cell100 column4">Rank</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+					<div class="table100-body js-pscroll">
+							<table>
+								<tbody>
+									{% for summoner in summoners %}
+									
+									<tr class="row100 body">
+										<td class="cell100 column1"> {{ summoner.name}}</td>
+										<td class="cell100 column2">{{ summoner.name}}   //{{ summoner.profileIconId }}</td>
+										<td class="cell100 column3">{{ summoner.summonerLevel }}</td>
+										<td class="cell100 column4"> pH</td>
+									</tr>
+									
+									{% endfor %}
+								</tbody>
+							</table>
+					</div>
+					{% paginate %}
+					</div>
+					
+					</div>
+					</div>
+					</div>
+					
+
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
+
